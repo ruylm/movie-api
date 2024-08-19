@@ -1,4 +1,4 @@
-package br.com.outsera.movie.infrastructure.controllers;
+package br.com.outsera.movie.infrastructure.dto;
 
 import java.util.List;
 

@@ -3,6 +3,8 @@ package br.com.outsera.movie.domain.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.outsera.movie.infrastructure.dto.CreateProducerRequest;
+import br.com.outsera.movie.infrastructure.dto.CreateStudioRequest;
 import br.com.outsera.movie.infrastructure.persistence.ProducerEntity;
 import br.com.outsera.movie.infrastructure.persistence.StudioEntity;
 import lombok.Data;
@@ -65,6 +67,26 @@ public class Movie {
 			this.producers = new ArrayList<Producer>();
 			for(ProducerEntity producer : producers) {
 				this.producers.add(new Producer(producer.getId(), producer.getName()));
+			}
+		}
+	}
+
+
+	public Movie(String title, Integer year, boolean winner, List<CreateStudioRequest> list, List<CreateProducerRequest> list2) {
+		this.title = title;
+		this.year = year;
+		this.winner = winner;
+		
+		if(list != null) {
+			this.studios = new ArrayList<Studio>();
+			for(CreateStudioRequest studio : list) {
+				this.studios.add(new Studio(studio.name()));
+			}
+		}
+		if(list2 != null) {
+			this.producers = new ArrayList<Producer>();
+			for(CreateProducerRequest producer : list2) {
+				this.producers.add(new Producer(producer.name()));
 			}
 		}
 	}

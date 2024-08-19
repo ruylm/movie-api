@@ -42,11 +42,35 @@ public class MovieRepositoryGateway implements MovieGateway {
 		}
 		return null;
 	}
+	
+	@Override
+	public List<Movie> getMoviesByProducerId(Long producerId) {
+		Optional<List<MovieEntity>> result = movieRepository.getMoviesByProducerId(producerId);
+		if(result.isPresent()) {
+			return movieEntityMapper.toDomainList(result.get());
+		}
+		return null;
+	}
 
 
 	@Override
 	public void removeMovie(Long id) {
 		movieRepository.deleteById(id);
+	}
+
+
+	@Override
+	public Movie getMovieByTitle(String title) {
+		Optional<MovieEntity> result = movieRepository.findByTitle(title);
+		if(result.isPresent()) {
+			return movieEntityMapper.toDomainObj(result.get());
+		}
+		return null;
+	}
+	
+	@Override
+	public Integer getCountMovies() {
+		return movieRepository.countMovies();
 	}
 
 }

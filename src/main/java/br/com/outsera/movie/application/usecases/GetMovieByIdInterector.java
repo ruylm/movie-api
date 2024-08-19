@@ -15,4 +15,12 @@ public class GetMovieByIdInterector {
 		return movieGateway.getMovieById(id);
 	}
 	
+	public Movie getMovieByTitle(String title) {
+		return movieGateway.getMovieByTitle(title);
+	}
+	
+	public Integer getCountMovies() {
+		return movieGateway.getCountMovies();
+	}
+	
 }

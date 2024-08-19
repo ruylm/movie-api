@@ -26,10 +26,10 @@ public class CreateMovieInterector {
 		
 		List<Studio> studios = new ArrayList<Studio>();
 		for(Studio s : movie.getStudios()) {
-			Studio studio = studioGateway.findStudioByName(s);
+			Studio studio = studioGateway.findByName(s);
 			if(studio == null) {
 				studio = new Studio(s.getName());
-				studio = studioGateway.createStudio(studio);
+				studio = studioGateway.create(studio);
 			}
 			studios.add(studio);
 		}
@@ -37,10 +37,10 @@ public class CreateMovieInterector {
 		
 		List<Producer> producers = new ArrayList<Producer>();
 		for(Producer s : movie.getProducers()) {
-			Producer producer = producerGateway.findProducerByName(s);
+			Producer producer = producerGateway.findByName(s);
 			if(producer == null) {
 				producer = new Producer(s.getName());
-				producer = producerGateway.createProducer(producer);
+				producer = producerGateway.create(producer);
 			}
 			producers.add(producer);
 		}

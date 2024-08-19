@@ -1,4 +1,4 @@
-package br.com.outsera.movie.infrastructure.controllers;
+package br.com.outsera.movie.infrastructure.dto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +10,11 @@ import br.com.outsera.movie.domain.entity.Studio;
 public class MovieDTOMapper {
 	
 	public CreateMovieResponse toResponse(Movie movie) {
-		return new CreateMovieResponse(movie.getTitle(), movie.getYear(), movie.isWinner());
+		return new CreateMovieResponse(movie.getId(), movie.getTitle(), movie.getYear(), movie.isWinner(),movie.getStudios(), movie.getProducers());
 	}
 	
 	public Movie toMovie(CreateMovieRequest request) {
-		return new Movie(null, request.title(), request.year(), request.winner(), null, null);
+		return new Movie(request.title(), request.year(), request.winner(), request.studios(), request.producers());
 	}
 	
 	public Movie toMovie(String[] line) {
