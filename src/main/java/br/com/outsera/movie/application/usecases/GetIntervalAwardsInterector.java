@@ -98,10 +98,6 @@ public class GetIntervalAwardsInterector {
 			List<Awards> maxIntervalAwards = new ArrayList<Awards>();
 			List<Movie> movies = movieGateway.getMoviesByProducerId(producer.getId());
 			
-			if(producer.getId() == 152) {
-				System.out.println("dddddd");
-			}
-			
 			if(movies != null) {
 				
 				for (Movie mv :movies) {
