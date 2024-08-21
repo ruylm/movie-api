@@ -42,7 +42,7 @@ public class GetIntervalAwardsInterector {
 		for (Producer producer :producersWin) {
 			
 			Awards lastIntervalAwards = null;
-			Awards minIntervalAwards = null;
+			List<Awards> minIntervalAwards = new ArrayList<Awards>();
 			List<Movie> movies = movieGateway.getMoviesByProducerId(producer.getId());
 			
 			if(movies != null) {
@@ -58,14 +58,18 @@ public class GetIntervalAwardsInterector {
 					
 					Awards currentIntervalAwards = new Awards(producer.getId(), producer.getName(), lastIntervalAwards.getFollowingWin(), mv.getYear());
 					
-					if(minIntervalAwards == null) {
-						minIntervalAwards = currentIntervalAwards.getClone();
+					if(minIntervalAwards.isEmpty()) {
+						minIntervalAwards.add(currentIntervalAwards.getClone());
 						lastIntervalAwards = currentIntervalAwards.getClone();
 						continue;
 					}
 					
-					if(currentIntervalAwards.getInterval() < minIntervalAwards.getInterval()) {
-						minIntervalAwards = currentIntervalAwards.getClone();
+					if(currentIntervalAwards.getInterval() < minIntervalAwards.get(0).getInterval()) {
+						minIntervalAwards.clear();
+						minIntervalAwards.add(currentIntervalAwards.getClone());
+					}
+					else if(currentIntervalAwards.getInterval() == minIntervalAwards.get(0).getInterval()) {
+						minIntervalAwards.add(currentIntervalAwards.getClone());
 					}
 					
 					lastIntervalAwards = currentIntervalAwards.getClone();
@@ -75,7 +79,7 @@ public class GetIntervalAwardsInterector {
 			}
 
 			if(minIntervalAwards != null) {
-				producerIntervalAwardsList.add(minIntervalAwards);
+				producerIntervalAwardsList.addAll(minIntervalAwards);
 			}
 			
 		}
@@ -91,8 +95,12 @@ public class GetIntervalAwardsInterector {
 		for (Producer producer :producersWin) {
 			
 			Awards lastIntervalAwards = null;
-			Awards maxIntervalAwards = null;
+			List<Awards> maxIntervalAwards = new ArrayList<Awards>();
 			List<Movie> movies = movieGateway.getMoviesByProducerId(producer.getId());
+			
+			if(producer.getId() == 152) {
+				System.out.println("dddddd");
+			}
 			
 			if(movies != null) {
 				
@@ -107,14 +115,18 @@ public class GetIntervalAwardsInterector {
 					
 					Awards currentIntervalAwards = new Awards(producer.getId(), producer.getName(), lastIntervalAwards.getFollowingWin(), mv.getYear());
 					
-					if(maxIntervalAwards == null) {
-						maxIntervalAwards = currentIntervalAwards.getClone();
+					if(maxIntervalAwards.isEmpty()) {
+						maxIntervalAwards.add(currentIntervalAwards.getClone());
 						lastIntervalAwards = currentIntervalAwards.getClone();
 						continue;
 					}
 					
-					if(currentIntervalAwards.getInterval() > maxIntervalAwards.getInterval()) {
-						maxIntervalAwards = currentIntervalAwards.getClone();
+					if(currentIntervalAwards.getInterval() > maxIntervalAwards.get(0).getInterval()) {
+						maxIntervalAwards.clear();
+						maxIntervalAwards.add(currentIntervalAwards.getClone());
+					}
+					else if(currentIntervalAwards.getInterval() == maxIntervalAwards.get(0).getInterval()) {
+						maxIntervalAwards.add(currentIntervalAwards.getClone());
 					}
 					
 					lastIntervalAwards = currentIntervalAwards.getClone();
@@ -124,7 +136,7 @@ public class GetIntervalAwardsInterector {
 			}
 
 			if(maxIntervalAwards != null) {
-				producerIntervalAwardsList.add(maxIntervalAwards);
+				producerIntervalAwardsList.addAll(maxIntervalAwards);
 			}
 			
 		}
